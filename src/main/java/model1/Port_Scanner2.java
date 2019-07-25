@@ -1,21 +1,14 @@
-        import java.awt.*;
-        import java.awt.event.ActionEvent;
-        import java.awt.event.ActionListener;
-        import java.io.IOException;
-        import java.net.InetSocketAddress;
-        import java.net.Socket;
+package model1;
 
-        import javax.swing.BorderFactory;
-        import javax.swing.JButton;
-        import javax.swing.JCheckBox;
-        import javax.swing.JFrame;
-        import javax.swing.JLabel;
-        import javax.swing.JPanel;
-        import javax.swing.JScrollPane;
-        import javax.swing.JTextArea;
-        import javax.swing.JTextField;
-        import javax.swing.event.ChangeEvent;
-        import javax.swing.event.ChangeListener;
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 
 /**
  * A network port scanner with GUI
@@ -175,6 +168,6 @@ class PortScanner extends JFrame implements ActionListener, ChangeListener {
      */
     public static void main( String[] args ) {
         @SuppressWarnings("unused")
-        PortScanner psg = new PortScanner();
+        PortScanner psg = new PortScanner ();
     }
 } 

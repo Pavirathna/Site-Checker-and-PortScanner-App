@@ -1,6 +1,10 @@
-import java.net.*;
-import java.io.IOException;
+package model1;
+
 import javax.swing.*;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 
 public class Port_Scanner {
