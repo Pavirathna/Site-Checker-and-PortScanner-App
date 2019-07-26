@@ -17,15 +17,15 @@ import java.net.Socket;
  */
 class PortScanner extends JFrame implements ActionListener, ChangeListener {
 
-    //Final variables
+
     private static final long serialVersionUID = 2884600754343147821L;
     private static final int WIDTH = 250;
     private static final int HEIGHT = 375;
 
-    //Flags
+
     private boolean displayAll = false;
 
-    //Compoents
+
     private JTextField ipAddress, lowerPort, higherPort;
     private JTextArea output;
     private JScrollPane outputScroller;
@@ -56,26 +56,26 @@ class PortScanner extends JFrame implements ActionListener, ChangeListener {
      * Sets up the components, panels, and adds them to the Frame
      */
     private final void initComponents() {
-        //Text fields
+
         this.ipAddress = new JTextField( 12 );
         this.lowerPort = new JTextField( 5 );
         this.higherPort = new JTextField( 5 );
 
-        //TextArea & ScrollPane
+
         this.output = new JTextArea( 10, 20 );
         this.output.setEditable( false );
         this.output.setLineWrap( true );
         this.outputScroller = new JScrollPane( this.output );
 
-        //Check box
+
         this.toggleDisplayAll = new JCheckBox( "Display all results (open & closed)" );
         this.toggleDisplayAll.addChangeListener( this );
 
-        //Buttons
+
         this.scanPorts = new JButton( "Scan" );
         this.scanPorts.addActionListener( this );
 
-        //JPanels
+
         this.settingsPanel = new JPanel( new FlowLayout() );
         this.settingsPanel.setBorder( BorderFactory.createTitledBorder( "Scan information" ) );
 
@@ -132,7 +132,7 @@ class PortScanner extends JFrame implements ActionListener, ChangeListener {
     private final void scan( String ipAddress, String lowPort, String highPort, int timeout ) {
         int start, end;
 
-        //verify port numbers
+
         try {
             start = Integer.parseInt( lowPort );
             end = Integer.parseInt( highPort );
@@ -147,7 +147,7 @@ class PortScanner extends JFrame implements ActionListener, ChangeListener {
             return;
         }
 
-        //Scan ports in range
+
         for( int current = start; current <= end; current++ ) {
             try {
                 Socket s = new Socket();
