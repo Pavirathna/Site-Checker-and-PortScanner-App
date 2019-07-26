@@ -49,6 +49,7 @@ class PortScanner extends JFrame implements ActionListener, ChangeListener {
         super.setResizable( false );
         super.setVisible( true );
         super.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+       
     }
 
     /**
