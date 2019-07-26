@@ -12,7 +12,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
             try {
 
                 HttpClient client = HttpClientBuilder.create().build();
-                HttpGet request = new HttpGet("http://mkyong.com");
+                HttpGet request = new HttpGet("http://google.com");
                 HttpResponse response = client.execute(request);
 
                 System.out.println("Printing Response Header...\n");

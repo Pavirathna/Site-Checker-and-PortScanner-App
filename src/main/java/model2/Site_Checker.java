@@ -11,10 +11,10 @@ public class Site_Checker {
             Scanner sc=new Scanner (System.in);
 
             try {
-               System.out.println ("Enter : ");
-               String site=sc.next ();
-                URL obj = new URL(site);
-              //  URL obj = new URL("http://mkyong.com");
+              // System.out.println ("eg:http://google.com\n Enter:" );
+               //String site=sc.next ();
+              //  URL obj = new URL(site);
+                URL obj = new URL("http://google.com");
                 URLConnection conn = obj.openConnection();
                 Map<String, List<String>> map = conn.getHeaderFields();
 
