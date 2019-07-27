@@ -14,7 +14,7 @@ public class Send_Mail {
 
         String to = "pvthra027@gmail.com";
         String from = "pavirathna077@gmail.com";
-        String host = "localhost";
+        String host = "";
         Properties properties = System.getProperties ();
         properties.setProperty ( "mail.smtp.host", host );
         Session session = Session.getDefaultInstance ( properties );

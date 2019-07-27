@@ -1,49 +1,49 @@
 package model2;
 
-import javax.mail.Message;
-import javax.mail.Session;
-import javax.mail.Transport;
+import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.util.Date;
+import java.util.Properties;
 
 public class Send_Mail2 {
 
-    /**
-     * Utility method to send simple HTML email
-     * @param session
-     * @param toEmail
-     * @param subject
-     * @param body
-     */
+    public static void main(String[] args) {
 
-    public static void sendEmail(Session session, String toEmail, String subject, String body){
-        try
-        {
-            MimeMessage msg = new MimeMessage(session);
-            //set message headers
-            msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
-            msg.addHeader("format", "flowed");
-            msg.addHeader("Content-Transfer-Encoding", "8bit");
+        final String username = "username@gmail.com";
+        final String password = "password";
 
-            msg.setFrom(new InternetAddress("no_reply@example.com", "NoReply-JD"));
+        Properties prop = new Properties();
+        prop.put("mail.smtp.host", "smtp.gmail.com");
+        prop.put("mail.smtp.port", "587");
+        prop.put("mail.smtp.auth", "true");
+        prop.put("mail.smtp.starttls.enable", "true"); //TLS
 
-            msg.setReplyTo(InternetAddress.parse("no_reply@example.com", false));
+        Session session = Session.getInstance(prop,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, password);
+                    }
+                });
 
-            msg.setSubject(subject, "UTF-8");
+        try {
 
-            msg.setText(body, "UTF-8");
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("pvthra027@gmail.com"));
+            message.setRecipients(
+                    Message.RecipientType.TO,
+                    InternetAddress.parse("pavirathna077@gmail.com")
+            );
+            message.setSubject("Testing Gmail TLS");
+            message.setText("Dear Mail Crawler,"
+                    + "\n\n Please do not spam my email!");
 
-            msg.setSentDate(new Date());
+            Transport.send(message);
 
-            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail, false));
-            System.out.println("Message is ready");
-            Transport.send(msg);
+            System.out.println("Done");
 
-            System.out.println("EMail Sent Successfully!!");
-        }
-        catch (Exception e) {
+        } catch (MessagingException e) {
             e.printStackTrace();
         }
     }
+
 }
