@@ -33,6 +33,7 @@ class PortScanner extends JFrame implements ActionListener, ChangeListener {
     private JButton scanPorts;
     private JPanel settingsPanel, outputPanel;
 
+
     /**
      * Sets up the frame and calls
      *
@@ -56,6 +57,7 @@ class PortScanner extends JFrame implements ActionListener, ChangeListener {
      * Sets up the components, panels, and adds them to the Frame
      */
     private final void initComponents() {
+
 
         this.ipAddress = new JTextField( 12 );
         this.lowerPort = new JTextField( 5 );
