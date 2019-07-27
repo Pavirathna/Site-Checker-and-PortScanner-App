@@ -1,4 +1,4 @@
-package model1;
+package com.auxolabs.scanner;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -132,7 +132,7 @@ class PortScanner extends JFrame implements ActionListener, ChangeListener {
     private final void scan( String ipAddress, String lowPort, String highPort, int timeout ) {
         int start, end;
 
-
+        //verify port numbers
         try {
             start = Integer.parseInt( lowPort );
             end = Integer.parseInt( highPort );
@@ -147,7 +147,7 @@ class PortScanner extends JFrame implements ActionListener, ChangeListener {
             return;
         }
 
-
+        //Scan ports in range
         for( int current = start; current <= end; current++ ) {
             try {
                 Socket s = new Socket();
