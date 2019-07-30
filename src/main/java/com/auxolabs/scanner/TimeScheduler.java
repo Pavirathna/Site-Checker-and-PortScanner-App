@@ -14,7 +14,7 @@ public class TimeScheduler {
             DateFormat df = new SimpleDateFormat ( "dd/MM/yy HH:mm:ss" );
             Date dateobj = new Date ();
             System.out.println ( df.format ( dateobj ) );
-            SiteChecker sc=new SiteChecker ();
+            SiteCheckerPro sc=new SiteCheckerPro ();
             sc.siteCheck ();
 
         }
