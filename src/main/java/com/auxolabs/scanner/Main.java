@@ -27,7 +27,7 @@ public class Main {
         } );
 
 
-        button1.setBounds ( 7,4,4,4 );
+
         panel.add ( button1 );
         panel.add ( button2 );
         frame.setSize ( 400,400 );

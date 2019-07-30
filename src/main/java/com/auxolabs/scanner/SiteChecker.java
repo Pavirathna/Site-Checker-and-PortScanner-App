@@ -16,6 +16,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SiteChecker extends JFrame implements ActionListener, ChangeListener {
 
@@ -44,39 +46,26 @@ public class SiteChecker extends JFrame implements ActionListener, ChangeListene
         initComponents ();
 
         super.setLayout ( new FlowLayout () );
-        super.setSize ( 300, 500 );
+        super.setSize ( 600, 500 );
         super.setLocationRelativeTo ( null );
         super.setResizable ( false );
         super.setVisible ( true );
         super.setDefaultCloseOperation ( JFrame.EXIT_ON_CLOSE );
-//        frame = new JFrame("Show Message Box");
-//        JButton button = new JButton("Click");
-//        // button.setAlignmentX((float) 100.00);
-//
-//        button.addActionListener(null);
-//        frame.add(button);
-//        frame.setSize(400, 200);
-//        frame.setVisible(true);
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
 
     private final void initComponents() {
 
 
-        this.site = new JTextField ( 20 );
+        this.site = new JTextField ( 40 );
         this.time = new JTextField ( 3 );
 
         this.mailId=new  JTextField ( 20 );
         this.password = new JTextField ( 10 );
 
-        this.output = new JTextArea ( 10, 20 );
-        this.output.setEditable ( false );
-        this.output.setLineWrap ( true );
-
-
-        this.toggleDisplayAll = new JCheckBox ( "Check Site With Time Schedule" );
+        this.toggleDisplayAll = new JCheckBox ( "Check Site With Time Schedule",true );
         this.toggleDisplayAll.addChangeListener ( this );
+
 
 
         this.check = new JButton ( "SUBMIT" );
@@ -85,7 +74,7 @@ public class SiteChecker extends JFrame implements ActionListener, ChangeListene
         this.settingsPanel = new JPanel ( new FlowLayout () );
         this.settingsPanel.setBorder ( BorderFactory.createTitledBorder ( "Site Checker" ) );
 
-        this.settingsPanel.setPreferredSize ( new Dimension ( 230, 230 ) );
+        this.settingsPanel.setPreferredSize ( new Dimension ( 500, 400 ) );
         this.settingsPanel.add ( new JLabel ( "Enter site " ) );
         this.settingsPanel.add ( this.site );
 
@@ -109,13 +98,17 @@ public class SiteChecker extends JFrame implements ActionListener, ChangeListene
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource () == this.check) {
 
+            String site = this.site.getText ();
+            String mailId = this.site.getText ();
 
-            try {
-                siteCheck(this.site.getText (),this.time.getText (),this.mailId.getText (),this.password.getText ());
-            } catch (InterruptedException e) {
-                e.printStackTrace ();
-            }
-
+//            if (isValid ( site,mailId)) {
+//                System.out.println (isValid ( site,mailId));
+                try {
+                    siteCheck ( this.site.getText (), this.time.getText (), this.mailId.getText (), this.password.getText () );
+                } catch (InterruptedException e) {
+                    e.printStackTrace ();
+                }
+//           }else    JOptionPane.showMessageDialog(frame," Enter Proper Field !!!");
         }
     }
 
@@ -131,7 +124,7 @@ public class SiteChecker extends JFrame implements ActionListener, ChangeListene
         int minute = Integer.parseInt(time);
         timeSchedule ( minute );
         try {
-            URL obj = new URL (site);//( "http://tamilrockers.co.com/" );
+            URL obj = new URL (site);
             URLConnection conn = obj.openConnection ();
             String server = conn.getHeaderField ( "Server" );
             if (server == null) {
@@ -197,6 +190,27 @@ public class SiteChecker extends JFrame implements ActionListener, ChangeListene
             e.printStackTrace ();
         }
         return null;
+    }
+    public boolean isValid(String stringSite,String mailId)
+    {
+       // Pattern patternM = Pattern.compile("\"[A-Z0-9._%-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,4}\" ");
+        Pattern patternM = Pattern.compile("^(.+)@(.+)$ ");
+        Matcher m = patternM.matcher(mailId);
+        boolean match = m.matches();
+        System.out.println (match);
+        Pattern patternS = Pattern.compile("\"^(http:\\/\\/www\\.|https:\\/\\/www\\.|http:\\/\\/|https:\\/\\/)?[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)*\\.[a-z]{2,5}(:[0-9]{1,5})?(\\/.*)?$ ");
+        Matcher ms = patternS.matcher(stringSite);
+        boolean match2 = ms.matches();
+        System.out.println (match2);
+        boolean match3 =Pattern.matches ( "^[1-5]?[0-9]",this.time.getText ());
+        boolean result=false;
+        System.out.println (match3);
+        if(match&&match2&&match3)
+        {
+           result=true;
+        }
+        return result;
+
     }
     public static void main (String[]args){
         @SuppressWarnings("unused")
