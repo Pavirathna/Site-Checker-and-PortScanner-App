@@ -28,6 +28,7 @@ class PortScanner extends JFrame implements ActionListener, ChangeListener {
     private JCheckBox toggleDisplayAll;
     private JButton scanPorts;
     private JPanel settingsPanel, outputPanel;
+    private JFrame frame;
 
 
     public PortScanner() {
@@ -89,7 +90,7 @@ class PortScanner extends JFrame implements ActionListener, ChangeListener {
         this.outputPanel.setBorder ( BorderFactory.createTitledBorder ( "Results: " ) );
         this.outputPanel.add ( outputScroller );
 
-        //add components
+
         super.add ( this.settingsPanel );
         super.add ( this.outputPanel );
     }
@@ -113,8 +114,7 @@ class PortScanner extends JFrame implements ActionListener, ChangeListener {
     private final void scan(String ipAddress, String lowPort, String highPort, int timeout) {
         int start, end;
 
-        //verify port numbers
-        try {
+         try {
             start = Integer.parseInt ( lowPort );
             end = Integer.parseInt ( highPort );
 
@@ -135,6 +135,7 @@ class PortScanner extends JFrame implements ActionListener, ChangeListener {
                 s.close ();
 
                 this.output.append ( "Open port: " + current + System.lineSeparator () );
+                JOptionPane.showMessageDialog ( frame,current+" port  is open" );
             } catch (IOException ioe) {
                 if (this.displayAll) {
                     this.output.append ( "Closed port: " + current + System.lineSeparator () );
@@ -142,4 +143,24 @@ class PortScanner extends JFrame implements ActionListener, ChangeListener {
             }
         }
     }
+
+//    public boolean isValid(int start,String end,String  ipAddress,)
+//    {
+//        Pattern patternS = Pattern.compile(	"^((((https?|ftps?|gopher|telnet|nntp)://)|(mailto:|news:))" +
+//                "(%[0-9A-Fa-f]{2}|[-()_.!~*';/?:@&=+$,A-Za-z0-9])+)" +
+//                "([).!';/?:,][[:blank:]])?$");
+//        Matcher ms = patternS.matcher(stringSite);
+//        boolean match2 = ms.matches();
+//        Pattern patternM = Pattern.compile ( "^(.+)@(.+)$" );
+//        Matcher m = patternM.matcher ( mailId );
+//        boolean match = m.matches ();
+//        boolean match3 =Pattern.matches ( "^[start-65535]",end);
+//        boolean result=false;
+//        if(match&&match2&&match3)
+//        {
+//            result=true;
+//        }
+//        return result;
+//
+//    }
 } 

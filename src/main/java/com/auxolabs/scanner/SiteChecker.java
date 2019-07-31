@@ -34,7 +34,7 @@ public class SiteChecker extends JFrame implements ActionListener, ChangeListene
     private JTextField mailId;
     private JTextField password;
 
-    private JTextArea output;
+
     private JCheckBox toggleDisplayAll;
     private JButton check;
     private JPanel settingsPanel;
@@ -99,16 +99,16 @@ public class SiteChecker extends JFrame implements ActionListener, ChangeListene
         if (ae.getSource () == this.check) {
 
             String site = this.site.getText ();
-            String mailId = this.site.getText ();
+            String mailId = this.mailId.getText ();
 
-//            if (isValid ( site,mailId)) {
-//                System.out.println (isValid ( site,mailId));
+            if (isValid ( site,mailId)) {
+                System.out.println (isValid ( site,mailId));
                 try {
                     siteCheck ( this.site.getText (), this.time.getText (), this.mailId.getText (), this.password.getText () );
                 } catch (InterruptedException e) {
                     e.printStackTrace ();
                 }
-//           }else    JOptionPane.showMessageDialog(frame," Enter Proper Field !!!");
+           }else    JOptionPane.showMessageDialog(frame," Enter Proper Field !!!");
         }
     }
 
@@ -122,35 +122,33 @@ public class SiteChecker extends JFrame implements ActionListener, ChangeListene
     public  void siteCheck(String site,String time,String mailId,String password) throws InterruptedException {
 
         int minute = Integer.parseInt(time);
-        timeSchedule ( minute );
+   //     timeSchedule ( minute );
         try {
             URL obj = new URL (site);
             URLConnection conn = obj.openConnection ();
             String server = conn.getHeaderField ( "Server" );
+            for(int i =1;i<=3;i++){
             if (server == null) {
+                timeSchedule ( minute );
                 System.out.println ( " 'Server' is down " );
                 sendMail (mailId,password);
-                JOptionPane.showMessageDialog(frame," Message Send Successfully !!!");
+                JOptionPane.showMessageDialog(frame," Message Sent Successfully !!!");
             } else {
                 System.out.println ( "Server - " + server );
-            }
+            }}
 
         } catch (Exception e) {
             e.printStackTrace ();
         }
     }
 
-    public static void timeSchedule(int min) throws InterruptedException {
+    public void timeSchedule(int min) throws InterruptedException {
 
-        for(int i=0;i<3;i++) {
             TimeUnit.MINUTES.sleep ( min );
             DateFormat df = new SimpleDateFormat ( "dd/MM/yy HH:mm:ss" );
             Date dateob = new Date ();
             System.out.println ( df.format ( dateob ) );
-            SiteCheckerPro sc=new SiteCheckerPro ();
-            sc.siteCheck ();
-
-        }
+      //      JOptionPane.showMessageDialog(frame,"   Message Send Successfully !!! ");
     }
     public  void sendMail(final String mailId, final String mpassword) throws MessagingException {
         String recepient =mailId;
@@ -159,8 +157,6 @@ public class SiteChecker extends JFrame implements ActionListener, ChangeListene
         properties.put ( "mail.smtp.starttls.enable", "true" );
         properties.put ( "mail.smtp.host", "smtp.gmail.com" );
         properties.put ( "mail.smtp.port", "587" );
-       // final String myAccountEmail = mailId;
-    //    final String passWord = mpassword;
         properties.setProperty ( "mail.smtp.user", mailId );
         properties.setProperty ( "mail.smtp.password", mpassword );
         properties.setProperty ( "mail.smtp.auth", "true" );
@@ -173,18 +169,18 @@ public class SiteChecker extends JFrame implements ActionListener, ChangeListene
         } );
         Message message = prepareMessage ( session, mailId, recepient );
         Transport.send ( message );
-        System.out.println ( "Message sent successfully!!" );
-
+        JOptionPane.showMessageDialog ( frame,"Message Sent Successfully !!!!" );
     }
 
-    private static Message prepareMessage(Session session, String myAccountEmail, String recepient) {
+    private Message prepareMessage(Session session, String myAccountEmail, String recepient) {
 
+        String site=this.site.getText ();
         try {
             Message message = new MimeMessage ( session );
             message.setFrom ( new InternetAddress ( myAccountEmail ) );
             message.setRecipient ( Message.RecipientType.TO, new InternetAddress ( recepient ) );
             message.setSubject ( "Site Checker" );
-            message.setText ( "That Site was down" );
+            message.setText (site+" site is currently down" );
             return message;
         } catch (MessagingException e) {
             e.printStackTrace ();
@@ -193,18 +189,16 @@ public class SiteChecker extends JFrame implements ActionListener, ChangeListene
     }
     public boolean isValid(String stringSite,String mailId)
     {
-       // Pattern patternM = Pattern.compile("\"[A-Z0-9._%-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,4}\" ");
-        Pattern patternM = Pattern.compile("^(.+)@(.+)$ ");
-        Matcher m = patternM.matcher(mailId);
-        boolean match = m.matches();
-        System.out.println (match);
-        Pattern patternS = Pattern.compile("\"^(http:\\/\\/www\\.|https:\\/\\/www\\.|http:\\/\\/|https:\\/\\/)?[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)*\\.[a-z]{2,5}(:[0-9]{1,5})?(\\/.*)?$ ");
+        Pattern patternS = Pattern.compile(	"^((((https?|ftps?|gopher|telnet|nntp)://)|(mailto:|news:))" +
+                        "(%[0-9A-Fa-f]{2}|[-()_.!~*';/?:@&=+$,A-Za-z0-9])+)" +
+                        "([).!';/?:,][[:blank:]])?$");
         Matcher ms = patternS.matcher(stringSite);
         boolean match2 = ms.matches();
-        System.out.println (match2);
+        Pattern patternM = Pattern.compile ( "^(.+)@(.+)$" );
+        Matcher m = patternM.matcher ( mailId );
+        boolean match = m.matches ();
         boolean match3 =Pattern.matches ( "^[1-5]?[0-9]",this.time.getText ());
         boolean result=false;
-        System.out.println (match3);
         if(match&&match2&&match3)
         {
            result=true;
