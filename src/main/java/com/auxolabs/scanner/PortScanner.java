@@ -37,11 +37,11 @@ class PortScanner extends JFrame implements ActionListener, ChangeListener {
         initComponents ();
 
         super.setLayout ( new FlowLayout () );
-        super.setSize ( 600, 700 );
+        super.setSize ( 600, 500 );
         super.setLocationRelativeTo ( null );
         super.setResizable ( false );
         super.setVisible ( true );
-        super.setDefaultCloseOperation ( JFrame.EXIT_ON_CLOSE );
+    //    super.setDefaultCloseOperation ( JFrame.EXIT_ON_CLOSE );
 
     }
 
@@ -93,6 +93,7 @@ class PortScanner extends JFrame implements ActionListener, ChangeListener {
 
         super.add ( this.settingsPanel );
         super.add ( this.outputPanel );
+
     }
 
     public void actionPerformed(ActionEvent ae) {
@@ -127,7 +128,7 @@ class PortScanner extends JFrame implements ActionListener, ChangeListener {
             return;
         }
 
-        //Scan ports in range
+
         for (int current = start; current <= end; current++) {
             try {
                 Socket s = new Socket ();
@@ -144,23 +145,5 @@ class PortScanner extends JFrame implements ActionListener, ChangeListener {
         }
     }
 
-//    public boolean isValid(int start,String end,String  ipAddress,)
-//    {
-//        Pattern patternS = Pattern.compile(	"^((((https?|ftps?|gopher|telnet|nntp)://)|(mailto:|news:))" +
-//                "(%[0-9A-Fa-f]{2}|[-()_.!~*';/?:@&=+$,A-Za-z0-9])+)" +
-//                "([).!';/?:,][[:blank:]])?$");
-//        Matcher ms = patternS.matcher(stringSite);
-//        boolean match2 = ms.matches();
-//        Pattern patternM = Pattern.compile ( "^(.+)@(.+)$" );
-//        Matcher m = patternM.matcher ( mailId );
-//        boolean match = m.matches ();
-//        boolean match3 =Pattern.matches ( "^[start-65535]",end);
-//        boolean result=false;
-//        if(match&&match2&&match3)
-//        {
-//            result=true;
-//        }
-//        return result;
-//
-//    }
+
 } 

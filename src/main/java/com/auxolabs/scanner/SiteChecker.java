@@ -50,7 +50,7 @@ public class SiteChecker extends JFrame implements ActionListener, ChangeListene
         super.setLocationRelativeTo ( null );
         super.setResizable ( false );
         super.setVisible ( true );
-        super.setDefaultCloseOperation ( JFrame.EXIT_ON_CLOSE );
+
     }
 
 
@@ -122,8 +122,7 @@ public class SiteChecker extends JFrame implements ActionListener, ChangeListene
     public  void siteCheck(String site,String time,String mailId,String password) throws InterruptedException {
 
         int minute = Integer.parseInt(time);
-   //     timeSchedule ( minute );
-        try {
+           try {
             URL obj = new URL (site);
             URLConnection conn = obj.openConnection ();
             String server = conn.getHeaderField ( "Server" );
@@ -132,7 +131,6 @@ public class SiteChecker extends JFrame implements ActionListener, ChangeListene
                 timeSchedule ( minute );
                 System.out.println ( " 'Server' is down " );
                 sendMail (mailId,password);
-                JOptionPane.showMessageDialog(frame," Message Sent Successfully !!!");
             } else {
                 System.out.println ( "Server - " + server );
             }}
@@ -148,7 +146,7 @@ public class SiteChecker extends JFrame implements ActionListener, ChangeListene
             DateFormat df = new SimpleDateFormat ( "dd/MM/yy HH:mm:ss" );
             Date dateob = new Date ();
             System.out.println ( df.format ( dateob ) );
-      //      JOptionPane.showMessageDialog(frame,"   Message Send Successfully !!! ");
+
     }
     public  void sendMail(final String mailId, final String mpassword) throws MessagingException {
         String recepient =mailId;
@@ -199,10 +197,15 @@ public class SiteChecker extends JFrame implements ActionListener, ChangeListene
         boolean match = m.matches ();
         boolean match3 =Pattern.matches ( "^[1-5]?[0-9]",this.time.getText ());
         boolean result=false;
-        if(match&&match2&&match3)
-        {
-           result=true;
-        }
+        if(!match){
+            JOptionPane.showMessageDialog(frame," Enter Proper  Email Id Field !!!\n eg : auxo1234@gmail.com");
+        }else if(!match2) {
+            JOptionPane.showMessageDialog ( frame, " Enter Proper Url !!!" );
+        }else if(!match3){
+            JOptionPane.showMessageDialog(frame," Enter Minute Proper  in 1-59 range ");
+        }else result=true;
+
+
         return result;
 
     }

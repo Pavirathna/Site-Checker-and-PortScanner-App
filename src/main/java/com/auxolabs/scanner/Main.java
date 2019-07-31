@@ -8,6 +8,7 @@ public class Main {
     public static void main(String[] args) {
         JFrame frame = new JFrame ( " Site Checker and Port Scanner " );
         JPanel panel = new JPanel (  );
+        frame.setDefaultCloseOperation ( JFrame.DISPOSE_ON_CLOSE );
 
 
         JButton button1 = new JButton ( "Site Checker" );
