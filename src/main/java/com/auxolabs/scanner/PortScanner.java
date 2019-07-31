@@ -14,14 +14,7 @@ import java.net.Socket;
 class PortScanner extends JFrame implements ActionListener, ChangeListener {
 
 
-    private static final long serialVersionUID = 2884600754343147821L;
-    private static final int WIDTH = 250;
-    private static final int HEIGHT = 375;
-
-
     private boolean displayAll = false;
-
-
     private JTextField ipAddress, lowerPort, higherPort;
     private JTextArea output;
     private JScrollPane outputScroller;
@@ -67,7 +60,7 @@ class PortScanner extends JFrame implements ActionListener, ChangeListener {
         this.toggleDisplayAll.addChangeListener ( this );
 
 
-        this.scanPorts = new JButton ( "Scan" );
+        this.scanPorts = new JButton ( " SCAN" );
         this.scanPorts.addActionListener ( this );
 
 
@@ -95,6 +88,7 @@ class PortScanner extends JFrame implements ActionListener, ChangeListener {
     }
 
     public void actionPerformed(ActionEvent ae) {
+
         if (ae.getSource () == this.scanPorts) {
 
             this.output.setText ( "Starting scan..." + System.lineSeparator () );
@@ -142,6 +136,4 @@ class PortScanner extends JFrame implements ActionListener, ChangeListener {
             }
         }
     }
-
-
-} 
+}
