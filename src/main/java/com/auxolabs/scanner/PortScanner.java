@@ -34,13 +34,8 @@ class PortScanner extends JFrame implements ActionListener, ChangeListener {
         super.setLocationRelativeTo ( null );
         super.setResizable ( false );
         super.setVisible ( true );
-       }
-
-
-    public static void main(String[] args) {
-        @SuppressWarnings("unused")
-        PortScanner psg = new PortScanner ();
     }
+
 
     private final void initComponents() {
 
@@ -107,7 +102,7 @@ class PortScanner extends JFrame implements ActionListener, ChangeListener {
     private final void scan(String ipAddress, String lowPort, String highPort, int timeout) {
         int start, end;
 
-         try {
+        try {
             start = Integer.parseInt ( lowPort );
             end = Integer.parseInt ( highPort );
 
@@ -128,7 +123,7 @@ class PortScanner extends JFrame implements ActionListener, ChangeListener {
                 s.close ();
 
                 this.output.append ( "Open port: " + current + System.lineSeparator () );
-                JOptionPane.showMessageDialog ( frame,current+" port  is open" );
+                JOptionPane.showMessageDialog ( frame, current + " port  is open" );
             } catch (IOException ioe) {
                 if (this.displayAll) {
                     this.output.append ( "Closed port: " + current + System.lineSeparator () );

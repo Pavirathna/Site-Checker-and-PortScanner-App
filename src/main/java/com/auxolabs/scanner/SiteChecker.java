@@ -4,8 +4,6 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,21 +14,16 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SiteChecker extends JFrame implements ActionListener, ChangeListener {
-
-
-    private boolean displayAll = false;
-
+public class SiteChecker extends JFrame implements ActionListener {
 
     private JTextField url;
     private JTextField time;
     private JTextField mailId;
     private JTextField password;
-
-
-    private JCheckBox toggleDisplayAll;
+    private JTextField recipient;
     private JButton check;
     private JPanel sitePanel;
+    private JLabel details;
     private JFrame frame;
 
     public SiteChecker() {
@@ -39,29 +32,23 @@ public class SiteChecker extends JFrame implements ActionListener, ChangeListene
         initComponents ();
 
         super.setLayout ( new FlowLayout () );
-        super.setSize ( 600, 500 );
+        super.setSize ( 700, 500 );
         super.setLocationRelativeTo ( null );
         super.setResizable ( false );
         super.setVisible ( true );
 
     }
 
-    public static void main(String[] args) {
-        @SuppressWarnings("unused")
-        SiteChecker psg = new SiteChecker ();
-    }
-
     private final void initComponents() {
 
 
-        this.url = new JTextField ( 40 );
+        this.url = new JTextField ( 34 );
         this.time = new JTextField ( 3 );
 
-        this.mailId = new JTextField ( 20 );
-        this.password = new JTextField ( 10 );
 
-        this.toggleDisplayAll = new JCheckBox ( "Check Site With Time Schedule", true );
-        this.toggleDisplayAll.addChangeListener ( this );
+        this.mailId = new JTextField ( 25 );
+        this.password = new JTextField ( 10 );
+        this.recipient = new JTextField ( 27 );
 
 
         this.check = new JButton ( "SUBMIT" );
@@ -70,23 +57,41 @@ public class SiteChecker extends JFrame implements ActionListener, ChangeListene
         this.sitePanel = new JPanel ( new FlowLayout () );
         this.sitePanel.setBorder ( BorderFactory.createTitledBorder ( "Site Checker" ) );
 
-        this.sitePanel.setPreferredSize ( new Dimension ( 500, 400 ) );
+        this.sitePanel.setPreferredSize ( new Dimension ( 600, 400 ) );
         this.sitePanel.add ( new JLabel ( "Enter URL " ) );
         this.sitePanel.add ( this.url );
 
-        this.sitePanel.add ( new JLabel ( "Enter time in minute: " ) );
+        this.sitePanel.add ( new JLabel ( "Enter time in minute " ) );
         this.sitePanel.add ( this.time );
 
-        this.sitePanel.add ( new JLabel ( " Enter Mail Id" ) );
+        this.sitePanel.add ( new JLabel ( "                                                    " ) );
+
+        this.sitePanel.add ( new JLabel ( "                                                    " ) );
+
+
+        this.sitePanel.add ( new JLabel ( "-----------------------------------------------------------Mail Details ------------------------------------------------------" ) );
+
+        this.sitePanel.add ( new JLabel ( "                                                                                                                            " ) );
+
+        this.sitePanel.add ( new JLabel ( "                                   " ) );
+
+        this.sitePanel.add ( new JLabel ( " Enter Your Mail Id" ) );
         this.sitePanel.add ( this.mailId );
 
         this.sitePanel.add ( new JLabel ( " Enter Password" ) );
         this.sitePanel.add ( this.password );
 
-        this.sitePanel.add ( this.toggleDisplayAll );
+        this.sitePanel.add ( new JLabel ( "                 " ) );
+
+        this.sitePanel.add ( new JLabel ( " Enter Recipient Mail Id" ) );
+        this.sitePanel.add ( this.recipient );
+
+        this.sitePanel.add ( new JLabel ( "                           "));
+
+        this.sitePanel.add ( new JLabel ( "                  " ) );
+
+
         this.sitePanel.add ( this.check );
-
-
         super.add ( this.sitePanel );
 
     }
@@ -97,9 +102,9 @@ public class SiteChecker extends JFrame implements ActionListener, ChangeListene
             String url = this.url.getText ();
             String mailId = this.mailId.getText ();
 
-            if (isValid ( url, mailId )) {
+            if (isValid ( url, mailId,this.recipient.getText () )) {
                 try {
-                    urlCheck ( this.url.getText (), this.time.getText (), this.mailId.getText (), this.password.getText () );
+                    urlCheck ( this.url.getText (), this.time.getText (), this.mailId.getText (), this.password.getText (),this.recipient.getText () );
                 } catch (InterruptedException e) {
                     e.printStackTrace ();
                 }
@@ -109,14 +114,7 @@ public class SiteChecker extends JFrame implements ActionListener, ChangeListene
         }
     }
 
-    public void stateChanged(ChangeEvent ce) {
-        if (ce.getSource () == toggleDisplayAll) {
-            this.displayAll = this.toggleDisplayAll.isSelected ();
-        }
-
-    }
-
-    public void urlCheck(String url, String time, String mailId, String password) throws InterruptedException {
+    public void urlCheck(String url, String time, String mailId, String password,String recipient) throws InterruptedException {
 
         int minute = Integer.parseInt ( time );
         try {
@@ -127,7 +125,7 @@ public class SiteChecker extends JFrame implements ActionListener, ChangeListene
                 if (server == null) {
                     timeSchedule ( minute );
                     System.out.println ( " 'Server' is down " );
-                    sendMail ( mailId, password );
+                    sendMail ( mailId, password ,recipient);
                 } else {
                     System.out.println ( "Server - " + server );
                     JOptionPane.showMessageDialog ( frame, "Server is working !!!" );
@@ -143,8 +141,8 @@ public class SiteChecker extends JFrame implements ActionListener, ChangeListene
         TimeUnit.MINUTES.sleep ( min );
     }
 
-    public void sendMail(final String mailId, final String mpassword) throws MessagingException {
-        String recepient = mailId;
+    public void sendMail(final String mailId, final String mpassword,final  String rep) throws MessagingException {
+        String recepient =rep;
         Properties properties = new Properties ();
         properties.put ( "mail..smtp.auth", "true" );
         properties.put ( "mail.smtp.starttls.enable", "true" );
@@ -181,27 +179,29 @@ public class SiteChecker extends JFrame implements ActionListener, ChangeListene
         return null;
     }
 
-    public boolean isValid(String stringSite, String mailId) {
+    public boolean isValid(String stringSite, String mailId,String toMailId) {
         Pattern patternS = Pattern.compile ( "^((((https?|ftps?|gopher|telnet|nntp)://)|(mailto:|news:))" +
                 "(%[0-9A-Fa-f]{2}|[-()_.!~*';/?:@&=+$,A-Za-z0-9])+)" +
                 "([).!';/?:,][[:blank:]])?$" );
         Matcher ms = patternS.matcher ( stringSite );
-        boolean match2 = ms.matches ();
+        boolean matchsite = ms.matches ();
         Pattern patternM = Pattern.compile ( "^(.+)@(.+)$" );
+        Matcher mss = patternM.matcher ( toMailId );
+        boolean matchto = mss.matches ();
         Matcher m = patternM.matcher ( mailId );
-        boolean match = m.matches ();
-        boolean match3 = Pattern.matches ( "^[1-5]?[0-9]", this.time.getText () );
+        boolean matchfrom = m.matches ();
+        boolean matchtime = Pattern.matches ( "^[1-5]?[0-9]", this.time.getText () );
         boolean result = false;
-        if (!match2) {
+        if (!matchfrom) {
             JOptionPane.showMessageDialog ( frame, " Enter Proper  Email Id Field !!!\n eg : auxo1234@gmail.com" );
-        } else if (!match) {
+        } else if(!matchto){
+            JOptionPane.showMessageDialog ( frame," Enter Proper  Email Id Field !!!" );
+        } else if (!matchsite) {
             JOptionPane.showMessageDialog ( frame, " Enter Proper Url !!!" );
-        } else if (!match3) {
+        } else if (!matchtime) {
             JOptionPane.showMessageDialog ( frame, " Enter Minute Proper  in 1-59 range " );
         } else result = true;
         return result;
-
     }
-
 
 }

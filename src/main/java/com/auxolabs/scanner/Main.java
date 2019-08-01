@@ -1,6 +1,7 @@
 package com.auxolabs.scanner;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -26,9 +27,12 @@ public class Main {
 
         panel.add ( button1 );
         panel.add ( button2 );
-        frame.setSize ( 400, 400 );
+        frame .setLayout ( new FlowLayout () );
+        frame .setSize ( 600, 500 );
+        frame .setLocationRelativeTo ( null );
         frame.add ( panel );
-        frame.setVisible ( true );
-        frame.setLayout ( null );
+        frame .setResizable ( true );
+        frame .setVisible ( true );
+
     }
 }
