@@ -23,7 +23,6 @@ public class SiteChecker extends JFrame implements ActionListener {
     private JTextField recipient;
     private JButton check;
     private JPanel sitePanel;
-    private JLabel details;
     private JFrame frame;
 
     public SiteChecker() {

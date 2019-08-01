@@ -9,9 +9,12 @@ public class Main {
     public static void main(String[] args) {
         JFrame frame = new JFrame ( " Site Checker and Port Scanner " );
         JPanel panel = new JPanel ();
+        panel.setLayout(new GridLayout (1, 2));
         frame.setDefaultCloseOperation ( JFrame.EXIT_ON_CLOSE );
         JButton button1 = new JButton ( "Site Checker" );
         JButton button2 = new JButton ( "Port Scanner" );
+        button1.setPreferredSize(new Dimension(300, 500));
+        button2.setPreferredSize(new Dimension(300, 500));
         button1.addActionListener ( new ActionListener () {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -24,7 +27,6 @@ public class Main {
                 new PortScanner ();
             }
         } );
-
         panel.add ( button1 );
         panel.add ( button2 );
         frame .setLayout ( new FlowLayout () );
@@ -33,6 +35,7 @@ public class Main {
         frame.add ( panel );
         frame .setResizable ( true );
         frame .setVisible ( true );
+
 
     }
 }
