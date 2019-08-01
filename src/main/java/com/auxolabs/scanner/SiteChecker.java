@@ -31,7 +31,7 @@ public class SiteChecker extends JFrame implements ActionListener {
         initComponents ();
 
         super.setLayout ( new FlowLayout () );
-        super.setSize ( 700, 500 );
+        super.setSize ( 600, 500 );
         super.setLocationRelativeTo ( null );
         super.setResizable ( false );
         super.setVisible ( true );

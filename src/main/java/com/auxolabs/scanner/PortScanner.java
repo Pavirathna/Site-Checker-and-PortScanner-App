@@ -19,7 +19,7 @@ class PortScanner extends JFrame implements ActionListener, ChangeListener {
     private JTextArea output;
     private JScrollPane outputScroller;
     private JCheckBox toggleDisplayAll;
-    private JButton scanPorts;
+    private JButton scanPorts,cancel;
     private JPanel settingsPanel, outputPanel;
     private JFrame frame;
 
@@ -55,8 +55,13 @@ class PortScanner extends JFrame implements ActionListener, ChangeListener {
         this.toggleDisplayAll.addChangeListener ( this );
 
 
+
         this.scanPorts = new JButton ( " SCAN" );
         this.scanPorts.addActionListener ( this );
+
+        this.cancel = new JButton ( " CANCEL" );
+        this.cancel.addActionListener ( this );
+
 
 
         this.settingsPanel = new JPanel ( new FlowLayout () );
@@ -71,7 +76,14 @@ class PortScanner extends JFrame implements ActionListener, ChangeListener {
         this.settingsPanel.add ( this.higherPort );
         this.settingsPanel.add ( this.toggleDisplayAll );
         this.settingsPanel.add ( this.scanPorts );
-
+        cancel.addActionListener ( new ActionListener () {
+            @Override
+            public void actionPerformed(ActionEvent ce) {
+                dispose ();
+                new PortScanner ();
+            }
+        } );
+        this.settingsPanel.add ( this.cancel );
         this.outputPanel = new JPanel ( new FlowLayout () );
         this.outputPanel.setBorder ( BorderFactory.createTitledBorder ( "Results: " ) );
         this.outputPanel.add ( outputScroller );
