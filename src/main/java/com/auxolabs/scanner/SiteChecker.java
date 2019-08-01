@@ -143,7 +143,6 @@ public class SiteChecker extends JFrame implements ActionListener {
     public void sendMail(final String mailId, final String mpassword,final  String rep) throws MessagingException {
         String recepient =rep;
         Properties properties = new Properties ();
-        properties.put ( "mail..smtp.auth", "true" );
         properties.put ( "mail.smtp.starttls.enable", "true" );
         properties.put ( "mail.smtp.host", "smtp.gmail.com" );
         properties.put ( "mail.smtp.port", "587" );
