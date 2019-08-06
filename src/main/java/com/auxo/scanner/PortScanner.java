@@ -129,6 +129,7 @@ class PortScanner extends JFrame implements ActionListener, ChangeListener {
         for (int current = start; current <= end; current++) {
             try {
                 Socket s = new Socket ();
+                JOptionPane.showMessageDialog ( frame,"loading " );
                 s.connect ( new InetSocketAddress ( ipAddress, current ) );
                 s.close ();
 
