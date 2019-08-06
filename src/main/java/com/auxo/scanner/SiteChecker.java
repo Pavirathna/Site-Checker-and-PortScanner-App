@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -18,8 +19,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SiteChecker extends JFrame implements ActionListener {
-
+    String mailId = "";
+    String passWord = "";
     static List<String> recipients = new ArrayList<> ();
+
     static List<String> urls = new ArrayList<> ();
     private JTextField url;
     private JTextField time;
@@ -179,12 +182,21 @@ public class SiteChecker extends JFrame implements ActionListener {
 
     }
 
-    public void sendMail(final List<String> rep) throws MessagingException {
+    public void sendMail(final List<String> rep) throws Exception {
 
         List<String> recepient = rep;
-        final String mailId = "auxodev1234@gmail.com";
-        final String passWord = "auxo1234";
-        Properties properties = new Properties ();
+        Properties properties=new Properties (  );
+//        final String mailId = "auxodev1234@gmail.com";
+//        final String passWord = "auxo1234";
+
+        try(InputStream inputStream=getClass ().getClassLoader ().getResourceAsStream ( "ScannerApplication.properties" ))
+        {
+            properties.load ( inputStream );
+            mailId=properties.getProperty ( "mailId" );
+            passWord=properties.getProperty ( "passWord" );
+        }
+        System.out.println ("mail id "+mailId);
+        System.out.println ("password "+passWord);
         properties.put ( "mail.smtp.starttls.enable", "true" );
         properties.put ( "mail.smtp.host", "smtp.gmail.com" );
         properties.put ( "mail.smtp.port", "587" );
