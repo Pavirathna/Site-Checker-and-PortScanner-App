@@ -185,16 +185,15 @@ public class SiteChecker extends JFrame implements ActionListener {
     public void sendMail(final List<String> rep) throws Exception {
 
         List<String> recepient = rep;
-        Properties properties=new Properties (  );
+        Properties properties = new Properties ();
 
-        try(InputStream inputStream=getClass ().getClassLoader ().getResourceAsStream ( "ScannerApplication.properties" ))
-        {
+        try (InputStream inputStream = getClass ().getClassLoader ().getResourceAsStream ( "ScannerApplication.properties" )) {
             properties.load ( inputStream );
-            mailId=properties.getProperty ( "mailId" );
-            passWord=properties.getProperty ( "passWord" );
+            mailId = properties.getProperty ( "mailId" );
+            passWord = properties.getProperty ( "passWord" );
         }
-        System.out.println ("mail id "+mailId);
-        System.out.println ("password "+passWord);
+        System.out.println ( "mail id " + mailId );
+        System.out.println ( "password " + passWord );
         properties.put ( "mail.smtp.starttls.enable", "true" );
         properties.put ( "mail.smtp.host", "smtp.gmail.com" );
         properties.put ( "mail.smtp.port", "587" );
@@ -247,6 +246,5 @@ public class SiteChecker extends JFrame implements ActionListener {
         }
         return result;
     }
-
 
 }
