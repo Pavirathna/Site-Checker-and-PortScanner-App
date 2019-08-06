@@ -176,36 +176,6 @@ public class SiteChecker extends JFrame implements ActionListener {
     public void timeSchedule(int min) throws InterruptedException {
         TimeUnit.MINUTES.sleep ( min );
 
-//        SchedulerFactory sf = new StdSchedulerFactory ();
-//
-//        Scheduler sched = sf.getScheduler();
-//
-//        JobDetail job1 = JobBuilder.newJob(DisplayCurrentTime.class)
-//
-//                .withIdentity("currentTime-Job-1", "group1")
-//
-//                .build();
-//
-//
-//
-//
-//
-//        Trigger trigger1 = TriggerBuilder.newTrigger()
-//
-//                .withIdentity("everyMinuteTrigger", "group1")
-//
-//                .startAt(new Date (System.currentTimeMillis()))
-//
-//                .withSchedule( CronScheduleBuilder.cronSchedule( "0 0/1 * 1/1 * ? *"))
-//
-//                .build();
-//
-//
-//
-//        Date ft = sched.scheduleJob(job1, trigger1);
-//
-//
-
 
     }
 
