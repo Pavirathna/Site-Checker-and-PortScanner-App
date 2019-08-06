@@ -186,8 +186,6 @@ public class SiteChecker extends JFrame implements ActionListener {
 
         List<String> recepient = rep;
         Properties properties=new Properties (  );
-//        final String mailId = "auxodev1234@gmail.com";
-//        final String passWord = "auxo1234";
 
         try(InputStream inputStream=getClass ().getClassLoader ().getResourceAsStream ( "ScannerApplication.properties" ))
         {
