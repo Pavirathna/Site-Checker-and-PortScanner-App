@@ -27,7 +27,7 @@ public class SiteChecker extends JFrame implements ActionListener {
     private JTextField url;
     private JTextField time;
     private JTextField recipient;
-    private JButton check, cancel, addRecipient, addUrl;
+    private JButton check, cancel, addRecipient, addUrl,setTime;
     private JPanel sitePanel;
     private JFrame frame;
 
@@ -52,6 +52,7 @@ public class SiteChecker extends JFrame implements ActionListener {
         this.addUrl = new JButton ( "+" );
         this.recipient = new JTextField ( 27 );
         this.addRecipient = new JButton ( "+" );
+        this.setTime=new JButton ( "SET TIME" );
         this.cancel = new JButton ( "CANCEL" );
         this.check = new JButton ( "SUBMIT" );
         this.check.addActionListener ( this );
@@ -66,11 +67,11 @@ public class SiteChecker extends JFrame implements ActionListener {
         addUrl.addActionListener ( new ActionListener () {
             @Override
             public void actionPerformed(ActionEvent ce) {
-
+                //add(new TextField (44  ));
                 if (isValid ( url.getText () )) {
                     urls.add ( url.getText () );
                     JOptionPane.showMessageDialog ( frame, url.getText () + "  url  added successfully" );
-                    url.setText ( "enter url " );
+                    url.setText ( String.valueOf ( urls ) );
                 } else {
                     JOptionPane.showMessageDialog ( frame, "Enter Proper Url" );
                     url.setText ( "" );
@@ -82,6 +83,9 @@ public class SiteChecker extends JFrame implements ActionListener {
 
         this.sitePanel.add ( new JLabel ( "Enter time in minute " ) );
         this.sitePanel.add ( this.time );
+        this.sitePanel.add ( setTime );
+
+
 
         this.sitePanel.add ( new JLabel ( "                                                    " ) );
 
@@ -102,10 +106,11 @@ public class SiteChecker extends JFrame implements ActionListener {
         addRecipient.addActionListener ( new ActionListener () {
             @Override
             public void actionPerformed(ActionEvent ce) {
+
                 if (isValid ( recipient.getText () )) {
                     recipients.add ( recipient.getText () );
                     JOptionPane.showMessageDialog ( frame, recipient.getText () + "  recipient added successfully" );
-                    recipient.setText ( "enter mail id" );
+                    recipient.setText ( String.valueOf ( recipients ) );
 
                 } else {
                     JOptionPane.showMessageDialog ( frame, "Enter Proper MailId" );
@@ -117,7 +122,9 @@ public class SiteChecker extends JFrame implements ActionListener {
 
         this.sitePanel.add ( new JLabel ( "             " ) );
 
+
         this.sitePanel.add ( this.check );
+
         this.sitePanel.add ( cancel );
         cancel.addActionListener ( new ActionListener () {
             @Override

@@ -1,5 +1,7 @@
 package com.auxo.scanner;
 
+
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -35,5 +37,6 @@ public class Main {
         frame.add ( panel );
         frame .setResizable ( true );
         frame .setVisible ( true );
+
     }
 }
